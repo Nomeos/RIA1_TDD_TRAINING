@@ -20,7 +20,7 @@ module.exports = class Cart{
      * @param items : list of cartItems
      */
     constructor(items = null){
-        throw new Error('Method not implemented.');
+        this.items = items;
     }
 
     /**
@@ -28,7 +28,7 @@ module.exports = class Cart{
      * @exception EmptyCartException is thrown if the Cart is empty
      */
     get items(){
-        throw new Error('Method not implemented.');
+        throw new EmptyCartException('Your cart seems to be empty !');
     }
 
     /**
@@ -36,7 +36,10 @@ module.exports = class Cart{
      * @exception EmptyCartException is thrown if the Cart is empty
      */
     get totalPrice(){
-        throw new Error('Method not implemented.');
+        if(this.items == null || this.items.empty()){
+            return 0;
+        }
+
     }
     //endregion public methods
 
