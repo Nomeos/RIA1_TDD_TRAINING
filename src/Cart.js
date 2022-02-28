@@ -11,9 +11,8 @@
 module.exports = class Cart{
 
     //region private attributes
-    items = null;
+    #items = null;
     //endregion private attributes
-
 
     /**
      * @brief This method constructs a Cart Object
@@ -27,19 +26,18 @@ module.exports = class Cart{
      * @brief This property returns the list of CartItems presents in the Cart.
      * @exception EmptyCartException is thrown if the Cart is empty
      */
-    get items(){
-        throw new EmptyCartException('Your cart seems to be empty !');
+
+    get Items(){
+        throw new Error('Method not implemented.');
     }
 
     /**
      * @brief This property returns the total of the Cart.
      * @exception EmptyCartException is thrown if the Cart is empty
      */
-    get totalPrice(){
-        if(this.items == null || this.items.empty()){
-            return 0;
-        }
 
+    :get TotalPrice(){
+        throw new Error('Method not implemented.');
     }
     //endregion public methods
 
