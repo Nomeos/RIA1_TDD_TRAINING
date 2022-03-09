@@ -8,6 +8,7 @@
 
 "use strict";
 
+let Error = require('./Error.js')
 module.exports = class CartItem {
 
     //region private attributes
@@ -27,10 +28,20 @@ module.exports = class CartItem {
      * @exception InvalidPriceException is thrown when the price is smaller than 10.
      */
     constructor(articleId, quantity, price) {
+        if (articleId < 1) {
+            throw new Error.InvalidArticleIdException('Your article id is invalid !');
+        }
+        if (quantity < 1) {
+            throw new Error.InvalidQuantityException('Your article quantity is invalid !');
+        }
+        if (price < 10) {
+            throw new Error.InvalidPriceException('Your article price is invalid !');
+        }
         this.#articleId = articleId;
         this.#quantity = quantity;
         this.#price = price;
     }
+
     /**
      * @brief This property gets the article id
      */
@@ -51,7 +62,10 @@ module.exports = class CartItem {
      * @exception InvalidQuantityException is thrown when the quantity is smaller than 1.
      */
     set Quantity(value) {
-        throw new Error();
+        if (value < 1) {
+            throw new Error.InvalidQuantityException('The new quantity of the article is invalid !');
+        }
+        this.#quantity = value;
     }
 
     /**
@@ -67,7 +81,10 @@ module.exports = class CartItem {
      * @exception InvalidPriceException is thrown when the price is smaller than 10.
      */
     set Price(value) {
-        throw new Error();
+        if (value < 10) {
+            throw new Error.InvalidPriceException('The new price of the article is invalid !');
+        }
+        this.#price = value;
     }
 
     /**
@@ -76,29 +93,14 @@ module.exports = class CartItem {
     get Total() {
         return this.#quantity * this.#price;
     }
+
     //endregion public methods
 
     //region private methods
     //endregion private methods
 }
 
-class Error {
-    constructor(message) {
-        this.message = message;
-    }
-}
 
-class CartItemException extends Error{
-}
-
-module.exports = class InvalidArticleIdException extends CartItemException{
-}
-
-module.exports = class InvalidQuantityException extends CartItemException{
-}
-
-module.exports = class InvalidPriceException extends CartItemException{
-}
 
 
 

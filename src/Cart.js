@@ -6,19 +6,19 @@
  * @version   13-02-2022 - updated (dedicated to RIA1)
  */
 
-"use strict";
-
-module.exports = class Cart{
+let Error =  require('./Error.js');
+module.exports = class Cart {
 
     //region private attributes
-    #items = null;
+    items = null;
+
     //endregion private attributes
 
     /**
      * @brief This method constructs a Cart Object
      * @param items : list of cartItems
      */
-    constructor(items = null){
+    constructor(items = null) {
         this.items = items;
     }
 
@@ -27,8 +27,15 @@ module.exports = class Cart{
      * @exception EmptyCartException is thrown if the Cart is empty
      */
 
-    get Items(){
-        throw new Error('Method not implemented.');
+    get Items() {
+        if (this.items == null) {
+            throw new Error.EmptyCartException('Your cart doesn\'t exists !');
+        }else{
+            if(this.items.empty){
+                throw new Error.EmptyCartException('Your cart seems to be empty !');
+            }
+        }
+        return this.items;
     }
 
     /**
@@ -36,9 +43,14 @@ module.exports = class Cart{
      * @exception EmptyCartException is thrown if the Cart is empty
      */
 
-    :get TotalPrice(){
-        throw new Error('Method not implemented.');
+    get TotalPrice() {
+        let total = 0;
+        this.Items.forEach(function (item) {
+            total += item.Price();
+        });
+        return total;
     }
+
     //endregion public methods
 
     //region private methods
